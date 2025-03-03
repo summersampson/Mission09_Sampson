@@ -1,4 +1,19 @@
-import './App.css'
+import React from "react";
+import "./App.css"; // Keep this for styles
+import Header from "./Header.tsx"; // Import the Header component
+
+const App: React.FC = () => {
+  return (
+    <div>
+      <Header />
+      {/* Other components like Team Cards will go here */}
+    </div>
+  );
+};
+
+export default App;
+
+/*import './App.css'
 
 const listNames = [
   {name: "Zak", fact: "is nice, cute mustache, etc.", cute: 100},
@@ -50,4 +65,4 @@ function App() {
   )
 }
 
-export default App
+export default App*/
