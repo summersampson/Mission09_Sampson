@@ -1,68 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css"; // Keep this for styles
-import Header from "./Header.tsx"; // Import the Header component
+import Header from "./Header.tsx";
+import CollegeBasketballTeams from "./CollegeBasketballTeams.json";
+
+interface Team {
+  school: string;
+  name: string;
+  city: string;
+  state: string;
+}
+
+const TeamCard: React.FC<Team> = ({ school, name, city, state }) => {
+  return (
+    <div className="border p-4 m-2 rounded-lg shadow-lg bg-white">
+      <h2 className="text-lg font-bold">{school}</h2>
+      <p className="text-gray-600">Mascot: {name}</p>
+      <p className="text-gray-600">
+        Location: {city}, {state}
+      </p>
+    </div>
+  );
+};
 
 const App: React.FC = () => {
+  const [teams, setTeams] = useState<Team[]>([]);
+
+  useEffect(() => {
+    if (CollegeBasketballTeams.teams) {
+      setTeams(CollegeBasketballTeams.teams);
+    }
+  }, []);
+
   return (
     <div>
       <Header />
-      {/* Other components like Team Cards will go here */}
+      <div className="grid grid-cols-3 gap-4 p-4">
+        {teams.map((team, index) => (
+          <TeamCard
+            key={index}
+            school={team.school}
+            name={team.name}
+            city={team.city}
+            state={team.state}
+          />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default App;
-
-/*import './App.css'
-
-const listNames = [
-  {name: "Zak", fact: "is nice, cute mustache, etc.", cute: 100},
-  {name: "Nicole", fact: "very precious girl", cute: 101},
-  {name: "Kitty", fact: "sweetest and smartest", cute: 101},
-  {name: "floatsy", fact: "very cute and silly", cute: 101}
-]
-
-function WelcomeToThePage() {
-  return <h1>this is no crime</h1>
-}
-
-function Person({name, fact, cute}: {name: string, fact: string, cute: number}) {
-
-  return (
-    <>
-      <img />
-      <h2>{name}</h2>
-      <h3>Fun Facts: {fact}</h3>
-      <h3>How cute are they?{cute}</h3>
-    </>
-  )
-}
-
-function NameList(){
-  
-  return (
-    <>
-      {
-        listNames.map((singlePerson) => (
-          <Person {...singlePerson} />
-        ))
-      }
-      <Person {...listNames[0]}/>
-      <Person {...listNames[1]}/>
-      <Person {...listNames[2]}/>
-      <Person {...listNames[3]}/>
-    </>
-  );
-}
-
-function App() {
-
-  return (
-    <>
-      <WelcomeToThePage />
-      <NameList />
-    </>
-  )
-}
-
-export default App*/
